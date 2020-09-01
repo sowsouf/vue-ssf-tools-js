@@ -1,0 +1,44 @@
+{
+  "name": "ssf-tools-js",
+  "version": "1.0.0",
+  "description": "A Vue.js component for html input",
+  "author": "Sofiane Akbly <sofiane.akbly@gmail.com>",
+  "private": true,
+  "main": "./dist/vue-ssf-tools-js.common.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build-lib": "vue-cli-service build --target lib --name vue-ssf-tools-js src/main.js",
+    "postversion": "git push origin dev && git push --tags && upload-modules ssf-tools-js SsfToolsJs"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "json-cookie": "^1.0.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.1.2",
+    "@vue/cli-service": "^4.1.2",
+    "fibers": "^4.0.2",
+    "lodash": "latest",
+    "node-sass": "^4.14.1",
+    "sass": "^1.23.3",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "engines": {
+    "node": ">= 8.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "files": [
+    "dist/*"
+  ]
+}

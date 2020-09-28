@@ -6,24 +6,24 @@ class Model {
 
   static __exec(server, url, method, options = {}) {
     if (this[method]) {
-      Api.server = server
+      Api.server = server;
       return eval(this[method](url, options))
     }
     throw `La méthode ${method} n'existe pas`
   }
 
-  static all(url) {
+  static all(url, options = {}) {
     return new Promise((resolve, reject) => {
-      Api.fetch(url).then(
+      Api.fetch(url, options).then(
         (response) => resolve(response),
         (error) => reject(error),
       )
     })
   }
 
-  static mine(url) {
+  static mine(url, options = {}) {
     return new Promise((resolve, reject) => {
-      Api.fetchBy(url, 'mine').then(
+      Api.fetchBy(url, 'mine', options).then(
         (response) => resolve(response),
         (error) => reject(error),
       )
@@ -41,7 +41,7 @@ class Model {
 
   static store(url, options = {}) {
     return new Promise((resolve, reject) => {
-      Api.create(url, options.data, { alert: false }).then(
+      Api.create(url, options.data, { ...options, ...{ alert: false } }).then(
         (data) => resolve(data),
         (error) => reject(error),
       )
@@ -60,7 +60,7 @@ class Model {
 
   static destroy(url, options = {}) {
     return new Promise((resolve, reject) => {
-      Api.destroy(url, options.id, { alert: false }).then(
+      Api.destroy(url, options.id, { ...options, ...{ alert: false } }).then(
         (data) => resolve(data),
         (error) => reject(error),
       )
@@ -69,7 +69,7 @@ class Model {
 
   static fetchById(url, options = {}) {
     return new Promise((resolve, reject) => {
-      Api.fetchBy(url, options.id).then(
+      Api.fetchBy(url, options.id, options).then(
         (data) => resolve(data),
         (error) => reject(error),
       )

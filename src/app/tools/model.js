@@ -78,7 +78,7 @@ class Model {
 
   static search(url, options = {}) {
     return new Promise((resolve, reject) => {
-      Api.fetchBy(`${url}/search`, encodeURIComponent(options.query), options).then(
+      Api.fetch(`${url}/search?q=${encodeURIComponent(options.query)}`, options).then(
         (data) => resolve(data),
         (error) => reject(error),
       )

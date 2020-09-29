@@ -27,11 +27,13 @@
 
       async run() {
         let Api = new API({
-          server: 'http://localhost:7000/api',
-          token : 'test'
+          server: 'http://localhost:2222/api/v1',
+          token : 'test',
         })
 
-        console.log(await Apartment.mine())
+        Api.destroy('/accounts', 'test', { headers: { 'X-API-KEY': 'your-api-key' } })
+
+        // console.log(await Apartment.mine())
 
       }
 

@@ -51,6 +51,10 @@ class Api {
     })
   }
 
+  get(url, options = {}) {
+    return this.fetch(url, options)
+  }
+
   fetch(url, options = {}) {
     return new Promise((resolve, reject) => {
       this.request('GET', url, options)
@@ -61,6 +65,10 @@ class Api {
 
   fetchBy(url, parameter, options = {}) {
     return this.fetch(`${url}/${parameter}`, options)
+  }
+
+  post(url, data, options = {}) {
+    return this.create(url, options)
   }
 
   create(url, data, options = {}) {

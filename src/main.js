@@ -1,12 +1,9 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
+// import SsfToolsJs from "@/components/SsfToolsJs/components/Main";
 
-import App     from './App'
+import Api   from '@/app/tools/api'
+import Model from '@/app/tools/model'
 
-Vue.config.productionTip = false
-
-new Vue({
-  el    : '#app',
-  render: h => h(App)
-}).$mount('#app')
+export {
+  Api,
+  Model
+}

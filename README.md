@@ -1,4 +1,4 @@
-# vue-new-module
+# vue-ssf-tools-js
 
 ## Project setup
 ```

@@ -28,10 +28,11 @@ class Api {
 
   config(method, path, options = null) {
     if (this._server) {
-      let config = { method: method.toUpperCase(), url: `${this._server}${path}`, headers: {} };
+      let config = { method: method.toUpperCase(), url: `${this._server}${path}`, headers: {}, data: {} };
       if (options) {
+        Object.keys(options).forEach(key => key === 'data' || key === 'headers' ? false : config.data[key] = options[key])
         if (options.data)
-          config.data = options.file ? options.data : { data: options.data };
+          config.data = { ...config.data, ...(options.file ? options.data : { data: options.data }) };
       }
       config.headers = this.__configHeaders(options);
       return config
@@ -50,6 +51,10 @@ class Api {
     })
   }
 
+  get(url, options = {}) {
+    return this.fetch(url, options)
+  }
+
   fetch(url, options = {}) {
     return new Promise((resolve, reject) => {
       this.request('GET', url, options)
@@ -62,6 +67,10 @@ class Api {
     return this.fetch(`${url}/${parameter}`, options)
   }
 
+  post(url, data, options = {}) {
+    return this.create(url, options)
+  }
+
   create(url, data, options = {}) {
     return new Promise((resolve, reject) => {
       this.request('POST', url, { ...options, ...{ data } })
@@ -72,7 +81,7 @@ class Api {
 
   update(url, id, data, options = {}) {
     return new Promise((resolve, reject) => {
-      this.request('PUT', `${url}/${id}`, { ...options, ...{ data } })
+      this.request('PUT', `${url}`, { ...options, ...{ id, data } })
         .then((response) => resolve(response))
         .catch((error) => reject(error))
     })
@@ -80,7 +89,7 @@ class Api {
 
   destroy(url, id, options = {}) {
     return new Promise((resolve, reject) => {
-      this.request('DELETE', `${url}/${id}`, options)
+      this.request('DELETE', `${url}`, { ...options, ...{ id } })
         .then((response) => resolve(response))
         .catch((error) => reject(error))
     })
@@ -92,7 +101,7 @@ class Api {
       headers = options.headers;
     if (!(headers['Content-Type']))
       headers['Content-Type'] = 'application/json';
-    if (this.token)
+    if (this.token && cookie.get(this.token))
       headers['Authorization'] = `Bearer ${cookie.get(this.token)}`;
     return headers;
   }
